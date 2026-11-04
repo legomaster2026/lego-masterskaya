@@ -35,7 +35,7 @@ jobs:
                   continue
 
               match = re.match(
-                  r"^(\d+)(?:\s*-\s*(\d+))?\s+урок",
+                 r"^(\d+)(?:\s*-\s*(\d+))?[\s_-]*(?:урок|уроков|urok|lesson)?",
                   file.name,
                   re.IGNORECASE
               )
