@@ -69,7 +69,7 @@
         for (let n = first; n <= last; n++) available.set(n, filename);
       }
       for (let n = 1; n <= 27; n++) grid.appendChild(card(n, available.get(n)));
-      status.textContent = "Доступно уроков: " + available.size + " из 26. Новые задания появляются здесь автоматически после загрузки на сайт.";
+      status.textContent = "Доступно уроков: " + available.size + " из 27. Новые задания появляются здесь автоматически после загрузки на сайт.";
     })
     .catch(() => {
       status.textContent = "Не удалось загрузить список уроков. Обновите страницу чуть позже.";
