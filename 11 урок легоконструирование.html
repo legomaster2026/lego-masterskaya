@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light"><title>LEGO-Мастерская — урок 11. Секрет баланса</title>
+<style>
+:root{--ink:#143151;--muted:#4d6784;--blue:#1a5cb2;--line:#d7e4f2;--sky:#eef6ff;--bg:#f4f7fd;--ok:#128164;--warn:#ad6d20}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at top left,#dfedff 0,transparent 38%),radial-gradient(ellipse at top right,#fff0d5 0,transparent 40%),var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,'Segoe UI',Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #1586da;outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.5}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(27px,5vw,38px);line-height:1.12;margin:5px 0 9px}h2{font-size:clamp(22px,4vw,28px);line-height:1.23;margin:9px 0 12px}h3{font-size:17px;margin:0 0 10px}.wrap{width:min(1020px,calc(100% - 26px));margin:auto}.brand{display:flex;gap:11px;align-items:center;padding:18px 0}.logo{display:grid;grid-template-columns:repeat(2,20px);gap:3px;transform:rotate(-8deg)}.logo span{height:18px;border-radius:5px;background:#f7b73b;box-shadow:inset 0 -5px 0 #bd7823}.logo span:nth-child(2){background:#e85a5b;box-shadow:inset 0 -5px 0 #bb3c42}.logo span:nth-child(3){background:#357ed5;box-shadow:inset 0 -5px 0 #245bb1}.logo span:nth-child(4){background:#28a79b;box-shadow:inset 0 -5px 0 #138276}.caps{font-weight:850;letter-spacing:.11em;font-size:10px;color:#22609e;text-transform:uppercase}.brandname{font-size:19px;line-height:1.2;font-weight:900}.hero{background:linear-gradient(115deg,#195399,#267bb8);border-radius:21px;color:white;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:18px}.hero .caps{color:#cae6ff}.hero p{color:#e7f4ff;font-size:15px;margin:0;max-width:750px}.hero .emoji{font-size:54px}.progress{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:16px 0}.progress b{font-size:12px;color:#5e738b;margin-right:5px}.step{display:grid;place-items:center;width:36px;height:36px;border-radius:11px;border:1px solid #cadced;background:white;font-weight:800;font-size:13px;color:#547193}.step.current{color:#1761b0;background:#e7f1ff;border-color:#3380cc}.step.done{color:#116b52;background:#dff6ec;border-color:#95dac0}.panel{background:white;border:1px solid #dce6f2;box-shadow:0 12px 34px #22517b12;border-radius:23px;padding:clamp(17px,4vw,30px);margin-bottom:35px}.badge{display:inline-block;background:#edf5ff;color:#235e9c;padding:6px 11px;border-radius:25px;font-size:12px;font-weight:850}.sub{color:var(--muted);font-size:15px;max-width:850px}.scene{background:#f5f9ff;border:1px solid #dae7f5;border-radius:17px;padding:12px;overflow:hidden}.scene svg{width:100%;height:auto;max-height:360px;display:block;margin:auto}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.controls{background:#f5f9ff;border:1px solid #deebf7;border-radius:15px;padding:13px;margin:13px 0}.flex{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.btn{border:2px solid #1b5aaf;border-radius:12px;padding:10px 16px;background:white;color:#1b5aaf;font-weight:850;font-size:14px}.btn.primary{background:#1b5aaf;color:white}.btn.soft{border-color:#cddff0;color:#345f84}.btn:hover:not(:disabled){filter:brightness(.965)}.actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}.feedback{border-radius:12px;padding:12px 14px;margin-top:16px;font-weight:650;font-size:14px}.feedback.good{background:#e7f7ee;border-left:5px solid #159367;color:#176847}.feedback.bad{background:#fff7e9;border-left:5px solid #da9f4c;color:#86551b}.legend{font-size:12px;color:#5a7892;margin:7px 0 0}.choicegrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.answer{min-height:105px;border:2px solid #dce7f3;border-radius:15px;background:#fbfdff;color:#183753;display:flex;flex-direction:column;gap:9px;align-items:flex-start;text-align:left;padding:13px;font-weight:750}.answer.selected{border-color:#1c6bc0;background:#eaf3ff}.answer .letter{display:grid;place-items:center;width:28px;height:28px;background:#eaf0f8;border-radius:8px;color:#295d95;font-size:13px}.answer svg{width:100%;height:auto;max-height:165px}.answer:hover{border-color:#82b0e1}.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{border:2px solid #d7e5f3;background:white;border-radius:11px;padding:9px 14px;color:#315d84;font-size:14px;font-weight:800}.pill.active{border-color:#1a63ba;background:#e7f2ff;color:#154f9c}.pills label{display:flex;gap:7px;align-items:center}.numbox{font-weight:900;color:#195aab}.explain{padding:12px 14px;background:#f0f7ff;border-left:4px solid #77a7db;border-radius:11px;color:#335778;font-size:14px;margin:13px 0}.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}.editing{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}.editing .pill{font-size:13px}.builder{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:13px;margin-top:12px}.editpanel{background:#f5f9ff;border:1px solid #dbe9f5;border-radius:17px;padding:14px}.buildgrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;max-width:430px;margin:0 auto}.cell{aspect-ratio:1;border:1.5px solid #cfdfea;border-radius:7px;background:#fff;color:#235b93;display:grid;place-items:center;padding:1px;min-width:0;font-size:clamp(13px,3vw,18px);font-weight:900}.cell.brick{background:#86b7f1;border-color:#3979c8;box-shadow:inset 0 -6px #3376c4}.cell.cargo{background:#efa36a;border-color:#be6e39;box-shadow:inset 0 -6px #d17d43}.wheelrow{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;max-width:430px;margin:7px auto 2px}.wheelSlot{border:1.5px dashed #bbd0e4;border-radius:12px;background:#fff;aspect-ratio:1;min-width:0;display:grid;place-items:center;font-size:clamp(19px,3.6vw,27px);color:#b8c9d8}.wheelSlot.has{border-style:solid;background:#dcecf9;color:#1a4c83}.wheellabel{text-align:center;color:#526e8a;font-weight:750;font-size:12px;margin:9px 0 0}.stat{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;color:#4d6984;font-size:12px;margin-top:10px}.checklist{display:grid;gap:9px}.checklist label{border:1px solid #dbe6f1;border-radius:12px;background:#fbfdff;padding:11px 12px;display:flex;gap:10px;align-items:flex-start;font-weight:650;font-size:14px}.checklist input{width:21px;height:21px;flex-shrink:0;accent-color:#1c70be}.complete{background:linear-gradient(130deg,#e8fbf0,#eef7ff);border:1px solid #b6decf;border-radius:22px;padding:clamp(23px,5vw,36px);margin-top:18px}.complete p{max-width:700px;color:#3e6571}.award{font-size:46px;margin-bottom:5px}.small{font-size:12px;color:var(--muted)}.direction{font-size:12px;color:#476b90;font-weight:700;text-align:center}.hidden{display:none!important} .footer{height:24px}
+@media(max-width:720px){.hero{padding:18px 19px}.hero .emoji{display:none}.choicegrid{grid-template-columns:repeat(2,minmax(0,1fr))}.builder{grid-template-columns:1fr}.two{grid-template-columns:1fr}.panel{padding:18px}.scene{padding:6px}.wheelSlot{border-radius:8px}}
+@media(max-width:420px){.choicegrid{grid-template-columns:1fr}.answer{min-height:70px}.hero h1{font-size:27px}.progress{gap:6px}.step{width:33px;height:33px}.editpanel{padding:9px}.buildgrid,.wheelrow{gap:3px}.cell{border-radius:5px}.wheelSlot{border-radius:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Падение модели при испытании: поворот вокруг нижнего края. */
+.tower-platform,.tower-body{transform-box:view-box;transition:transform .55s ease}
+.tower-body{transition:transform .8s cubic-bezier(.30,.08,.76,1.16)}
+@keyframes toppleTower{from{transform:rotate(0deg)}to{transform:rotate(63deg)}}
+.topple-now{animation:toppleTower .85s cubic-bezier(.35,.05,.73,1.1) forwards}
+</style>
+</head>
+<body>
+<header class="wrap brand"><span class="logo" aria-hidden="true"><span></span><span></span><span></span><span></span></span><div><div class="caps">Интерактивный курс · 2 класс</div><div class="brandname">LEGO-Мастерская</div></div></header>
+<main class="wrap"><section class="hero"><div><div class="caps">Урок 11 · Полигон испытаний</div><h1>Секрет баланса</h1><p>Ты будешь испытывать постройки, находить центр тяжести и создавать машину, которая не перевернётся на повороте.</p></div><div class="emoji" aria-hidden="true">🏎️</div></section><div id="app"></div></main><div class="footer"></div>
+<script>
+'use strict';
+const N=6;
+const S={step:0,done:new Set(),msg:'',success:false,orders:{},chosen:null,angle:0,width:2,cargoLevel:2,tested:false,levelTested:false,baseTested:false,carTested:false,mode:'brick',board:Array.from({length:4},()=>Array(7).fill(0)),wheels:[],checks:new Set()};
+const $=s=>document.querySelector(s);
+const rand=n=>{if(typeof crypto!=='undefined'&&crypto.getRandomValues){const a=new Uint32Array(1);crypto.getRandomValues(a);return Math.floor(a[0]/4294967296*n)}return Math.floor(Math.random()*n)};
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=rand(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+function progress(){return `<div class="progress"><b>Твои шаги</b>${Array.from({length:N},(_,i)=>`<span class="step ${S.step===i?'current':S.done.has(i)?'done':''}">${S.done.has(i)?'✓':i+1}</span>`).join('')}</div>`}
+function svgStart(label='Модель',w=720,h=350){return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" role="img" aria-label="${label}">`}
+function brick(x,y,w,h,fill='#4089d9'){return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${fill}" stroke="#245a9a" stroke-width="1.4"/><rect x="${x+w*.35}" y="${y-5}" width="${w*.3}" height="7" rx="3" fill="#bbdefa"/>`}
+function towerSvg(angle){
+ const baseY=268;
+ const tallCrit=Math.atan(44/204)*180/Math.PI;
+ const wideCrit=Math.atan(145/68)*180/Math.PI;
+ let s=svgStart('Две башни: высокая опрокидывается при наклоне, низкая остаётся устойчивой',720,355);
+ s+=`<text x="186" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#244b74">Высокая и узкая</text>
+ <text x="538" y="34" text-anchor="middle" font-size="20" font-weight="800" fill="#244b74">Низкая и широкая</text>`;
+ for(const [i,xc,w,h,limit,color] of [[0,186,44,204,tallCrit,'#397bc7'],[1,538,145,68,wideCrit,'#33aa9a']]){
+  const fallen=angle>limit;
+  s+=`<g id="tilt-platform-${i}" class="tower-platform" style="transform-origin:${xc}px ${baseY}px;transform:rotate(${angle}deg)">
+  <rect x="${xc-127}" y="${baseY}" width="254" height="10" rx="4" fill="#9ab2c8"/>
+  <g id="fall-body-${i}" class="tower-body" style="transform-origin:${xc}px ${baseY}px;transform:rotate(${fallen?62:0}deg)">`;
+  const seg=Math.max(1,Math.round(h/34));
+  for(let k=0;k<seg;k++){const q=h/seg;s+=brick(xc-w/2,baseY-(k+1)*q,w,q-1,color)}
+  s+=`</g></g>`;
+ }
+ s+=`<text x="360" y="330" font-size="16" font-weight="750" text-anchor="middle" fill="#56738f">Наклон: <tspan id="svgAngle">${angle}</tspan>°</text>`;
+ return s+'</svg>';
+}
+function towerStatus(angle){
+ const tallCrit=Math.atan(44/204)*180/Math.PI;
+ if(angle===0)return 'Передвигай ползунок и наблюдай, что происходит с постройками.';
+ if(angle<=tallCrit)return 'Площадка наклоняется. Пока обе башни стоят.';
+ return 'Высокая башня опрокинулась! Низкая широкая башня продолжает стоять.';
+}
+function updateTowerScene(angle){
+ for(const [i,xc] of [[0,186],[1,538]]){
+  const p=document.getElementById('tilt-platform-'+i);
+  const b=document.getElementById('fall-body-'+i);
+  if(p)p.style.transform=`rotate(${angle}deg)`;
+  if(b)b.style.transform=`rotate(${i===0&&angle>Math.atan(44/204)*180/Math.PI?62:0}deg)`;
+ }
+ const lbl=document.getElementById('towerResult');
+ if(lbl)lbl.textContent=towerStatus(angle);
+ const av=document.getElementById('svgAngle');
+ if(av)av.textContent=angle;
+}
+
+function towerTask(){if(!S.orders[0])S.orders[0]=shuffle(['tall','wide','same']);const names={tall:'Высокая и узкая',wide:'Низкая и широкая',same:'Обе одинаково устойчивы'};
+return `<p class="sub">Две постройки стоят на одной площадке. Измени наклон и посмотри, какую из них легче опрокинуть.</p><div class="scene" id="towerScene">${towerSvg(S.angle)}</div><p class="explain" id="towerResult" role="status">${towerStatus(S.angle)}</p><div class="controls"><div class="flex"><b>Наклони площадку</b><span class="numbox" id="angleValue">${S.angle}°</span></div><input id="tilt" type="range" min="0" max="35" value="${S.angle}" step="1" style="width:100%;accent-color:#1b68b9" aria-label="Наклон площадки"><p class="legend">Передвигай ползунок: обе башни наклоняются на одинаковый угол.</p></div><h3>Какая постройка лучше сохраняет равновесие?</h3>${choices(0,S.orders[0],names)}`}
+function choices(key,order,names,visuals){return `<div class="choicegrid">${order.map((id,i)=>`<button class="answer ${S.chosen===id?'selected':''}" data-pick="${id}" aria-pressed="${S.chosen===id}"><span class="letter">${'АБВГ'[i]}</span>${visuals?visuals[id]:names[id]}</button>`).join('')}</div>`}
+function widthSvg(w,tested=false){
+ let s=svgStart('Башня, которую можно испытать на наклонной площадке',700,355);
+ const unit=32,cx=350,base=275,ww=w*unit,angle=tested?25:0;
+ const stable=Math.atan(w/6)*180/Math.PI>25;
+ s+=`<g style="transform-box:view-box;transform-origin:${cx}px ${base}px;transform:rotate(${angle}deg)">
+ <path d="M60 ${base+5}H640" stroke="#a1b6c9" stroke-width="9" stroke-linecap="round"/>
+ <g class="${tested&&!stable?'topple-now':''}" style="transform-box:view-box;transform-origin:${cx}px ${base}px">`;
+ for(let y=0;y<6;y++)for(let x=0;x<w;x++)s+=brick(cx-ww/2+x*unit,base-(y+1)*unit,unit-1,unit-2,'#397dce');
+ s+=`</g></g><text x="350" y="331" text-anchor="middle" fill="#315f8c" font-weight="750" font-size="16">Основание: ${w} клетки${tested?' · наклон 25°':''}</text>`;
+ return s+'</svg>';
+}
+
+function widthTask(){return `<p class="sub">Высота башни не меняется — 6 кирпичиков. А вот ширину основания ты можешь изменить. Построй башню, которая устоит при наклоне.</p><div class="scene">${widthSvg(S.width,S.baseTested)}</div><div class="controls"><b>Выбери ширину основания</b><div class="pills" style="margin-top:10px">${[2,4,6].map(w=>`<button class="pill ${S.width===w?'active':''}" data-width="${w}">${w} клетки</button>`).join('')}</div><p class="legend">Башню будем наклонять на 25°. Когда будешь готов, проведи испытание.</p></div><div class="actions"><button class="btn soft" id="tryWidth">Испытать башню</button></div>`}
+function centerSvg(level,showDot=false){
+ const base=268,cx=347,spacing=46;
+ let s=svgStart('Башня с тяжёлым кирпичиком и центром тяжести',700,355);
+ let sum=0,z=0;
+ for(let y=0;y<5;y++){let m=y===level?8:1;sum+=m;z+=m*(y+.5)}
+ const cg=z/sum,threshold=Math.atan(49/(cg*spacing))*180/Math.PI;
+ const fallen=showDot&&threshold<=35;
+ const angle=showDot?35:0;
+ s+=`<g style="transform-box:view-box;transform-origin:${cx}px ${base}px;transform:rotate(${angle}deg)">
+ <path d="M65 ${base+5}H635" stroke="#a1b6c9" stroke-width="9" stroke-linecap="round"/>
+ <g class="${fallen?'topple-now':''}" style="transform-box:view-box;transform-origin:${cx}px ${base}px">`;
+ for(let y=0;y<5;y++)s+=brick(cx-49,base-(y+1)*spacing,98,spacing-2,y===level?'#e69b59':'#488edc');
+ if(showDot)s+=`<circle cx="${cx}" cy="${base-cg*spacing}" r="10" fill="#fce462" stroke="#885d10" stroke-width="3"/>`;
+ s+=`</g></g><text x="350" y="327" text-anchor="middle" font-size="16" font-weight="800" fill="#315f8c">${showDot?'Испытание: наклон 35°':'Оранжевая деталь тяжелее остальных'}</text>`;
+ return s+'</svg>';
+}
+
+function cargoTask(){return `<p class="sub">Оранжевый кирпичик намного тяжелее синих. Перемещай его и проверяй, когда башне труднее упасть.</p><div class="scene">${centerSvg(S.cargoLevel,S.levelTested)}</div><div class="controls"><b>Куда поставить тяжёлый кирпичик?</b><div class="pills" style="margin-top:10px">${[[0,'Внизу'],[2,'Посередине'],[4,'Наверху']].map(([v,label])=>`<button class="pill ${S.cargoLevel===v?'active':''}" data-cargo="${v}">${label}</button>`).join('')}</div><p class="legend">На испытании площадка наклонится на 35°.</p></div><div class="actions"><button class="btn soft" id="tryCargo">Проверить на наклоне</button></div>`}
+function carCard(type){let w=type==='tall'?60:type==='low'?138:138, h=type==='low'?65:155;const color=type==='low'?'#2e9b9b':'#3987d4';let x=160-w/2,y=179-h;let s=svgStart('Машина для сравнения устойчивости',320,230);s+=`<path d="M36 196H287" stroke="#adc1d4" stroke-width="7" stroke-linecap="round"/>`;s+=`<rect x="${x}" y="${y}" rx="6" width="${w}" height="${h}" fill="${color}" stroke="#25619a" stroke-width="2"/>`;
+for(let i=0;i<Math.round(h/27);i++)s+=`<line x1="${x}" x2="${x+w}" y1="${y+27*i}" y2="${y+27*i}" stroke="#ffffff" stroke-opacity=".35"/>`;
+for(let xx of [160-w*.36,160+w*.36])s+=`<circle cx="${xx}" cy="190" r="16" fill="#234e7e" stroke="#163757" stroke-width="3"/><circle cx="${xx}" cy="190" r="6" fill="#daedfa"/>`;return s+'</svg>'}
+function selectTask(){if(!S.orders[3])S.orders[3]=shuffle(['tall','low','wide']);const titles={tall:'Высокая и узкая',low:'Низкая и широкая',wide:'Высокая и широкая'};const visuals={};for(const id of Object.keys(titles))visuals[id]=`${carCard(id)}<span>${titles[id]}</span>`;
+return `<p class="sub">Все три машины едут с одинаковой скоростью и поворачивают одинаково резко. Какая из них меньше всего рискует перевернуться?</p>${choices(3,S.orders[3],titles,visuals)}`}
+const occupiedCount=()=>S.board.flat().filter(x=>x===1).length;
+const cargoLoc=()=>{for(let y=0;y<4;y++)for(let x=0;x<7;x++)if(S.board[y][x]===2)return [x,y];return null};
+function removeCargo(){for(let y=0;y<4;y++)for(let x=0;x<7;x++)if(S.board[y][x]===2)S.board[y][x]=1}
+function carData(){const list=[{x:3,y:.35,m:3}];for(let y=0;y<4;y++)for(let x=0;x<7;x++){let v=S.board[y][x];if(v)list.push({x,y:y+1.1,m:v===2?5:1})}const tot=list.reduce((a,b)=>a+b.m,0),x=list.reduce((a,b)=>a+b.x*b.m,0)/tot,y=list.reduce((a,b)=>a+b.y*b.m,0)/tot;let lo=Math.min(...S.wheels),hi=Math.max(...S.wheels);return {x,y,lo,hi,ok:S.wheels.length===2&&x-y*.55>=lo-.45&&x+y*.55<=hi+.45}}
+function userCarSVG(){let s=svgStart('Твоя машина — вид спереди',700,355);s+=`<path d="M35 305H660" stroke="#a8bed1" stroke-width="9" stroke-linecap="round"/>`;const xs=x=>135+x*69, bottom=260, q=44;
+s+=`<rect x="104" y="${bottom}" width="462" height="17" rx="7" fill="#306fb9" stroke="#1f518a" stroke-width="2"/>`;
+for(let y=0;y<4;y++)for(let x=0;x<7;x++){const cell=S.board[y][x];if(cell)s+=brick(xs(x),bottom-(y+1)*q,54,q-2,cell===2?'#e59c61':'#488fd7')}
+for(const x of S.wheels){const xx=xs(x)+27;s+=`<circle cx="${xx}" cy="291" r="27" fill="#244b78" stroke="#163854" stroke-width="3"/><circle cx="${xx}" cy="291" r="11" fill="#d8eafa" stroke="#3371a4" stroke-width="2"/>`}
+if(S.carTested&&S.wheels.length===2){const d=carData();const xx=xs(d.x)+27,yy=bottom-(d.y-.4)*q;s+=`<circle cx="${xx}" cy="${yy}" r="10" fill="#fff173" stroke="#896827" stroke-width="3"/>`;}
+s+=`<text x="350" y="27" fill="#3d6382" font-size="17" font-weight="750" text-anchor="middle">Вид спереди</text>`;return s+'</svg>'}
+function buildTask(){let cnt=occupiedCount(),cargo=cargoLoc();return `<p class="sub">Построй свою машину для резкого поворота. Размести два колеса, несколько синих кирпичиков и один тяжёлый оранжевый груз. Изменяй конструкцию и испытывай её.</p><div class="builder"><div class="editpanel"><h3>Строительная площадка</h3><p class="small">Выбери деталь и нажимай на клетки.</p><div class="editing">${[['brick','Синий кирпичик'],['cargo','Тяжёлый груз'],['erase','Убрать']].map(([v,t])=>`<button class="pill ${S.mode===v?'active':''}" data-mode="${v}">${t}</button>`).join('')}</div><div class="buildgrid">${[3,2,1,0].map(y=>Array.from({length:7},(_,x)=>{const z=S.board[y][x];return `<button type="button" class="cell ${z===1?'brick':z===2?'cargo':''}" data-cell="${x},${y}" aria-label="${z===0?'Пусто':z===1?'Кирпичик':'Тяжёлый груз'}, столбец ${x+1}, уровень ${y+1}">${z===2?'▣':z===1?'●':''}</button>`}).join('')).join('')}</div><div class="wheelrow">${Array.from({length:7},(_,i)=>`<button type="button" class="wheelSlot ${S.wheels.includes(i)?'has':''}" data-wheel="${i}" aria-label="${S.wheels.includes(i)?'Убрать колесо':'Поставить колесо'} в месте ${i+1}">${S.wheels.includes(i)?'●':'+'}</button>`).join('')}</div><div class="wheellabel">Места для двух колёс</div><div class="stat"><span>Колёс: <b>${S.wheels.length}/2</b></span><span>Синих кирпичиков: <b>${cnt}</b></span><span>Груз: <b>${cargo?'есть':'нет'}</b></span></div><p class="legend">Строй снизу вверх. Если детали стоят высоко и колёса близко друг к другу, машина может перевернуться.</p></div><div class="editpanel"><h3>Твоя машина</h3><div class="scene">${userCarSVG()}</div><p class="small" style="margin-top:10px">Когда всё готово, испытай машину на повороте. Если она перевернётся, измени постройку и попробуй снова.</p><div class="actions"><button class="btn soft" id="testCar">Испытать на повороте</button><button class="btn soft" id="resetCar">Начать заново</button></div></div></div>`}
+function realTask(){const steps=['Я построил две разные башни: высокую узкую и низкую широкую.','Я осторожно проверил, какая из них устойчивее.','Я построил машину с колёсами и грузом и испытал её на небольшом наклоне.','Я могу объяснить, что помогло моей машине не упасть.'];return `<p class="sub">Теперь возьми настоящий LEGO-конструктор. Твоя задача — построить устойчивую машину и объяснить, почему она не переворачивается.</p><div class="two"><div class="scene">${realSVG()}</div><div><h3>Моя проверка</h3><div class="checklist">${steps.map((t,i)=>`<label><input type="checkbox" data-check="${i}" ${S.checks.has(i)?'checked':''}><span>${t}</span></label>`).join('')}</div></div></div><p class="explain">Испытывай постройку осторожно: слегка наклоняй картонную подставку, не бросай и не толкай модель с силой.</p>`}
+function realSVG(){let s=svgStart('Маленькая машина на полигоне испытаний',650,310);s+=`<path d="M42 256L610 225" stroke="#a9bdd0" stroke-width="14" stroke-linecap="round"/>`;s+=`<rect x="156" y="133" width="338" height="95" rx="12" fill="#4b97df" stroke="#235e9e" stroke-width="4"/><rect x="253" y="90" width="142" height="61" rx="9" fill="#e7a163" stroke="#b27644" stroke-width="3"/>`;for(const xx of [218,440])s+=`<circle cx="${xx}" cy="236" r="39" fill="#244775" stroke="#163b61" stroke-width="4"/><circle cx="${xx}" cy="236" r="16" fill="#d9e9f6" stroke="#397caf" stroke-width="3"/>`;s+=`<text x="325" y="53" text-anchor="middle" font-size="22" font-weight="800" fill="#285e93">Испытай свою модель!</text>`;return s+'</svg>'}
+const titles=['Проверь две башни','Сделай башню устойчивой','Куда положить тяжёлую деталь?','Выбери устойчивую машину','Создай машину для поворота','Испытай настоящий конструктор'];
+const renderers=[towerTask,widthTask,cargoTask,selectTask,buildTask,realTask];
+function actions(){if(S.success)return `<div class="actions"><button class="btn primary" id="next">${S.step===N-1?'Завершить урок':'Следующее задание →'}</button></div>`;
+if(S.step===0||S.step===3)return `<div class="actions"><button class="btn primary" id="checkAnswer">Проверить ответ</button></div>`;
+if(S.step===5)return `<div class="actions"><button class="btn primary" id="finishReal" ${S.checks.size===4?'':'disabled'}>Я выполнил задание ✓</button></div>`;
+return ''}
+function render(){const step=S.step;$('#app').innerHTML=`${progress()}<section class="panel"><span class="badge">Задание ${step+1} из ${N}</span><h2>${titles[step]}</h2>${renderers[step]()}${actions()}${S.msg?`<div class="feedback ${S.success?'good':'bad'}" role="status">${S.msg}</div>`:''}</section>`;setup()}
+function chooseNext(){S.done.add(S.step);if(S.step===N-1){complete();return;}S.step++;S.msg='';S.success=false;S.chosen=null;S.tested=false;S.levelTested=false;S.baseTested=false;S.carTested=false;render();window.scrollTo({top:0,behavior:'smooth'})}
+function doFeedback(message,correct){S.msg=message;S.success=correct;if(correct)S.done.add(S.step);render()}
+function testChoice(){let correct=S.step===0?'wide':'low';if(S.chosen===null){doFeedback('Сначала выбери один ответ.',false);return}doFeedback(S.chosen===correct?(S.step===0?'Верно! Широкое основание и небольшая высота помогают башне не падать.':'Верно! Низкая и широкая машина устойчивее на повороте.'):'Посмотри, какая модель ниже и у какой шире основание. Попробуй ещё раз.',S.chosen===correct)}
+function testWidth(){const threshold=Math.atan(S.width/6)*180/Math.PI,stable=threshold>25;S.baseTested=true;doFeedback(stable?'Башня устояла! Широкое основание помогает сохранить равновесие.':'Башня опрокинулась. Попробуй увеличить ширину основания и повторить испытание.',stable)}
+function testCargo(){const v=S.cargoLevel, sums=[.5,1.5,2.5,3.5,4.5],cog=(sums.reduce((a,b)=>a+b,0)+7*sums[v])/12;const stable=Math.atan(49/(cog*46))*180/Math.PI>35;S.levelTested=true;doFeedback(stable?'Башня устояла! Тяжёлые детали внизу опускают центр тяжести.':'Башня упала на наклоне. Попробуй передвинуть тяжёлую деталь ниже.',stable)}
+function testCar(){S.carTested=true;const cnt=occupiedCount(),cargo=cargoLoc();if(S.wheels.length!==2){doFeedback('У машины должны быть два колеса. Нажми на два места в нижнем ряду.',false);return}if(cnt<3){doFeedback('Добавь хотя бы три синих кирпичика.',false);return}if(!cargo){doFeedback('Добавь один тяжёлый оранжевый груз.',false);return}
+const d=carData();if(d.ok){doFeedback('Машина прошла поворот! Ты удачно расположил колёса и детали. Попробуй объяснить, почему она устояла.',true);return}
+const span=d.hi-d.lo;
+let msg=span<4?'Машина перевернулась. Попробуй поставить колёса дальше друг от друга.':d.y>2.1?'Машина перевернулась. Попробуй опустить тяжёлый груз ниже.':'Машина перевернулась. Попробуй передвинуть груз ближе к середине и проверить снова.';doFeedback(msg,false)}
+function updateBuild(action,value){S.msg='';S.success=false;S.carTested=false;S.done.delete(S.step);if(action==='mode'){S.mode=value;render();return}
+if(action==='wheel'){let x=Number(value);if(S.wheels.includes(x))S.wheels=S.wheels.filter(y=>y!==x);else if(S.wheels.length<2)S.wheels.push(x);else S.msg='Сначала убери одно колесо, затем поставь его на другое место.';render();return}
+if(action==='cell'){let [x,y]=value.split(',').map(Number),old=S.board[y][x];if(S.mode==='erase'){if(y<3&&S.board[y+1][x]!==0){S.msg='Сначала убери детали, которые стоят сверху.';}else S.board[y][x]=0;render();return}
+if(y>0&&S.board[y-1][x]===0){S.msg='Сначала построй опору на клетке ниже.';render();return}
+if(S.mode==='brick'){S.board[y][x]=1}else{if(cargoLoc()&&!(old===2))removeCargo();S.board[y][x]=2}render();}}
+function setup(){const $tilt=$('#tilt');if($tilt)$tilt.addEventListener('input',e=>{S.angle=+e.target.value;updateTowerScene(S.angle);$('#angleValue').textContent=S.angle+'°'});
+document.querySelectorAll('[data-pick]').forEach(el=>el.addEventListener('click',()=>{S.chosen=el.dataset.pick;S.msg='';S.success=false;S.done.delete(S.step);render()}));
+document.querySelectorAll('[data-width]').forEach(el=>el.addEventListener('click',()=>{S.width=+el.dataset.width;S.baseTested=false;S.msg='';S.success=false;S.done.delete(S.step);render()}));
+document.querySelectorAll('[data-cargo]').forEach(el=>el.addEventListener('click',()=>{S.cargoLevel=+el.dataset.cargo;S.levelTested=false;S.msg='';S.success=false;S.done.delete(S.step);render()}));
+document.querySelectorAll('[data-mode]').forEach(el=>el.addEventListener('click',()=>updateBuild('mode',el.dataset.mode)));
+document.querySelectorAll('[data-wheel]').forEach(el=>el.addEventListener('click',()=>updateBuild('wheel',el.dataset.wheel)));
+document.querySelectorAll('[data-cell]').forEach(el=>el.addEventListener('click',()=>updateBuild('cell',el.dataset.cell)));
+document.querySelectorAll('[data-check]').forEach(el=>el.addEventListener('change',()=>{let i=+el.dataset.check;if(el.checked)S.checks.add(i);else S.checks.delete(i);S.msg='';S.success=false;render()}));
+const bind=(id,fn)=>{let el=$('#'+id);if(el)el.addEventListener('click',fn)};
+bind('checkAnswer',testChoice);bind('tryWidth',testWidth);bind('tryCargo',testCargo);bind('testCar',testCar);bind('resetCar',()=>{S.board=Array.from({length:4},()=>Array(7).fill(0));S.wheels=[];S.mode='brick';S.msg='';S.success=false;S.carTested=false;S.done.delete(S.step);render()});bind('finishReal',()=>{if(S.checks.size===4)doFeedback('Ты провёл испытания! Покажи учителю свою машину и объясни, почему она не переворачивается.',true)});bind('next',chooseNext);
+}
+function complete(){$('#app').innerHTML=`<section class="complete"><div class="award">🏆</div><div class="caps">Миссия завершена</div><h2>Отличная работа, LEGO-инженер!</h2><p>Ты узнал, как высота, ширина основания и положение тяжёлых деталей влияют на устойчивость. Теперь ты умеешь испытывать машину и улучшать её конструкцию!</p><button class="btn primary" id="again">Пройти урок ещё раз ↻</button></section>`;$('#again').addEventListener('click',()=>{S.step=0;S.done=new Set();S.msg='';S.success=false;S.chosen=null;S.angle=0;S.width=2;S.cargoLevel=2;S.board=Array.from({length:4},()=>Array(7).fill(0));S.wheels=[];S.mode='brick';S.checks=new Set();S.orders={};S.levelTested=false;S.carTested=false;render();window.scrollTo({top:0,behavior:'smooth'})})}
+render();
+</script></body></html>
