@@ -70,16 +70,16 @@
         const last = Number(item.end ?? item["конец"] ?? first);
         const filename = item.file ?? item["файл"];
         if (!Number.isInteger(first) || !Number.isInteger(last) ||
-            first < 1 || last > 27 || last < first || typeof filename !== "string" ||
+            first < 1 || last > 33 || last < first || typeof filename !== "string" ||
             !/^[^/\\]+\.html$/i.test(filename) || filename.toLowerCase() === "index.html") continue;
         for (let n = first; n <= last; n++) available.set(n, filename);
       }
-      for (let n = 1; n <= 27; n++) grid.appendChild(card(n, available.get(n)));
-      status.textContent = "Доступно уроков: " + available.size + " из 27. Новые задания появляются здесь автоматически после загрузки на сайт.";
+      for (let n = 1; n <= 33; n++) grid.appendChild(card(n, available.get(n)));
+      status.textContent = "Доступно уроков: " + available.size + " из 33. Новые задания появляются здесь автоматически после загрузки на сайт.";
     })
     .catch(() => {
       status.textContent = "Не удалось загрузить список уроков. Обновите страницу чуть позже.";
-      for (let n = 1; n <= 27; n++) grid.appendChild(card(n, null));
+      for (let n = 1; n <= 33; n++) grid.appendChild(card(n, null));
     });
 })();
 </script></main><footer>LEGO-Мастерская · Учимся, играем, конструируем</footer></body></html>
