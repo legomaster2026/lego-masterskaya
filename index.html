@@ -72,12 +72,12 @@
 <button class="lesson" data-lesson="31"><span class="number">31</span><span>Фундамент и вертикальность</span><span class="arrow">↗</span></button>
 <button class="lesson" data-lesson="32"><span class="number">32</span><span>Окна, двери и выносные элементы</span><span class="arrow">↗</span></button>
 <button class="lesson" data-lesson="33"><span class="number">33</span><span>Крыша, финал и презентация</span><span class="arrow">↗</span></button>
-<button class="lesson" data-lesson="34"><span class="number">34</span><span>Посвящение в LEGO-мастера</span><span class="arrow">↗</span></button></div></aside><div aria-labelledby="modalTitle" aria-modal="true" class="modal" id="modal" role="dialog"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="modalactions"><a class="go" id="go" rel="noopener noreferrer" target="_blank">Открыть задание ↗</a><button class="close" id="closeModal">Вернуться к карте</button></div></div><script>
+<button class="lesson" data-lesson="34"><span class="number">34</span><span>Посвящение в LEGO-мастера</span><span class="arrow">↗</span></button></div></aside><div aria-labelledby="modalTitle" aria-modal="true" class="modal" id="modal" role="dialog"><h2 id="modalTitle"></h2><p id="modalText"></p><div class="modalactions"><a class="go" id="go" rel="noopener noreferrer" target="_blank">Открыть задание ↗</a><button class="close" id="closeModal">Вернуться к карте</button></div></div><div aria-label="Интерактивное задание" class="lesson-view" id="lessonView"><div class="lesson-top"><button id="backToMap" type="button">← На карту LEGO-страны</button><strong id="lessonHeading">Урок</strong></div><iframe allow="fullscreen" class="lesson-frame" id="lessonFrame" title="Интерактивное задание LEGO-Мастерской"></iframe></div><script>
 const BASE='https://legomaster2026.github.io/lego-masterskaya/';
 const titles=['Техника безопасности','Порт размеров','Лабиринт креплений','Дворец орнаментов','Зеркальный лабиринт','Карта архитектора','Секретный код масштаба','Сколько кирпичиков нужно?','Секрет плоской коробки','Машина-помощник','Секрет баланса','Зубчатый код','Секрет подъёма','Секрет прыжка','Энергия движения','Ловушка для ветра','Весы справедливости','Сейф для сокровищ','Уютный дом','Крыши и наклоны','Верный друг','Секретный объект','LEGO-зверюшка','LEGO-цветок','Робот-змея','Крутящийся знак','LEGO-камера','LEGO-автомат','Секрет мозаики','Секрет балкона','Фундамент и вертикальность','Окна, двери и выносные элементы','Крыша, финал и презентация','Посвящение в LEGO-мастера'];
 const viewport=document.getElementById('viewport'),map=document.getElementById('map'),panel=document.getElementById('panel'),shade=document.getElementById('shade'),modal=document.getElementById('modal');
 const viewer=document.getElementById('lessonView'),frame=document.getElementById('lessonFrame');
-let zoom=1,lessonFiles={},activeLesson=0;
+let zoom=1,lessonFiles={2:BASE+'2%20%D1%83%D1%80%D0%BE%D0%BA%20%D0%9B%D0%B5%D0%B3%D0%BE%D0%BA%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5.html'},activeLesson=0;
 function setZoom(n){zoom=Math.max(1,Math.min(3,n));map.style.width=(zoom*100)+'%'}
 document.getElementById('plus').onclick=()=>setZoom(zoom+.25);document.getElementById('minus').onclick=()=>setZoom(zoom-.25);document.getElementById('reset').onclick=()=>{setZoom(1);viewport.scrollTo({left:0,top:0,behavior:'smooth'})};
 function panelOpen(open){panel.classList.toggle('show',open);shade.classList.toggle('show',open)}
@@ -85,60 +85,49 @@ document.getElementById('all').onclick=()=>panelOpen(true);document.getElementBy
 function modalClose(){modal.classList.remove('show');shade.classList.remove('show')}
 document.getElementById('closeModal').onclick=modalClose;shade.onclick=()=>{panelOpen(false);modalClose()};
 function filenameURL(name){return BASE+String(name).split('/').map(encodeURIComponent).join('/')}
-function numberFromName(name){
- const leaf=decodeURIComponent(String(name).split('/').pop());
- const m=leaf.match(/^\s*0?(\d{1,2})(?=\s|[-_.]|урок|час|$)/i);
- return m?Number(m[1]):null;
-}
-function addLesson(n,name,overwrite=false){
- if(!Number.isInteger(n)||n<1||n>33||typeof name!=='string')return;
- const clean=name.trim().replace(/^\.\//,'');
- if(!/\.html?$/i.test(clean)||/^index(?:\s|\.|\()/i.test(clean))return;
- if(!lessonFiles[n]||overwrite)lessonFiles[n]=filenameURL(clean);
-}
-function parseEntries(data){
- const entries=Array.isArray(data)?data:Array.isArray(data.lessons)?data.lessons:Array.isArray(data.items)?data.items:[];
- for(const item of entries){
-  if(typeof item==='string'){addLesson(numberFromName(item),item);continue}
-  if(!item||typeof item!=='object')continue;
-  const name=item.file??item.filename??item.path??item.url??item['файл']??item.name;
-  if(typeof name!=='string')continue;
-  const start=Number(item.start??item.number??item.num??item.lesson??item.id??item['начало']??numberFromName(name));
-  const end=Number(item.end??item['конец']??start);
-  if(Number.isInteger(start)&&Number.isInteger(end)&&end>=start&&end-start<34){for(let n=start;n<=end;n++)addLesson(n,name)}
- }
- if(!Array.isArray(data)&&data&&typeof data==='object'){
-  for(const [key,val] of Object.entries(data)){
-   if(/^\d{1,2}$/.test(key))addLesson(Number(key),typeof val==='string'?val:(val?.file??val?.filename??val?.path));
-  }
- }
-}
 async function loadLessons(){
- // Try the published manifest, then the repository's actual filenames.
- try{
-  const r=await fetch(BASE+'lessons.json',{cache:'no-store'});
-  if(r.ok)parseEntries(await r.json());
- }catch(e){console.warn('Список уроков недоступен:',e)}
- try{
-  const r=await fetch('https://api.github.com/repos/legomaster2026/lego-masterskaya/contents/?ref=main',{headers:{Accept:'application/vnd.github+json'}});
-  if(r.ok){
-   const entries=await r.json();
-   if(Array.isArray(entries))for(const item of entries){
-    if(item.type==='file'&&/\.html?$/i.test(item.name))addLesson(numberFromName(item.name),item.name,true);
-   }
+  // Read the repository directory directly. This also works when lessons.json is outdated.
+  const assign=(n,name)=>{if(n>=1&&n<=33&&typeof name==='string'&&/\.html?$/i.test(name)&&!lessonFiles[n])lessonFiles[n]=filenameURL(name)};
+  try{
+    const r=await fetch('https://api.github.com/repos/legomaster2026/lego-masterskaya/contents/',{cache:'no-store'});
+    if(!r.ok)throw Error('GitHub API '+r.status);
+    const files=await r.json();
+    if(!Array.isArray(files))throw Error('GitHub API format');
+    for(const f of files){
+      if(f.type!=='file'||!/\.html?$/i.test(f.name))continue;
+      const match=f.name.match(/^\s*(\d{1,2})(?=\s|[-_.]|урок|час)/i);
+      if(match)assign(Number(match[1]),f.name);
+    }
+  }catch(e){console.warn('GitHub API:',e)}
+  // Secondary source: site's lesson manifest. Accept common English/Russian field names.
+  for(const manifest of ['lessons.json']){
+    try{
+      const r=await fetch(BASE+encodeURIComponent(manifest),{cache:'no-store'});
+      if(!r.ok)continue;
+      const data=await r.json();
+      const entries=Array.isArray(data)?data:(data.lessons||data.уроки||data.items||[]);
+      if(!Array.isArray(entries))continue;
+      for(const item of entries){
+        const name=item.file??item.filename??item.path??item['файл']??item.html;
+        const first=Number(item.start??item.number??item.lesson??item.num??item['начало']??item['номер']);
+        const last=Number(item.end??item['конец']??first);
+        if(!Number.isInteger(first)||!Number.isInteger(last)||typeof name!=='string')continue;
+        for(let i=first;i<=Math.min(last,33);i++)if(!lessonFiles[i])assign(i,name);
+      }
+    }catch(e){console.warn('Manifest:',manifest,e)}
   }
- }catch(e){console.warn('Не удалось проверить файлы репозитория:',e)}
- return lessonFiles;
+  // If lesson files were named without a number, keep the user informed instead of a broken link.
 }
 const ready=loadLessons();
 function backToMap(){viewer.classList.remove('show');frame.removeAttribute('src');document.body.style.overflow='';activeLesson=0;history.replaceState(null,'',location.pathname+location.search)}
 document.getElementById('backToMap').onclick=backToMap;
 async function openLesson(n){panelOpen(false);if(n===34){document.getElementById('modalTitle').textContent='34. Посвящение в LEGO-мастера';document.getElementById('modalText').textContent='Поздравляем с завершением путешествия! Ты настоящий LEGO-мастер!';document.getElementById('go').style.display='none';modal.classList.add('show');shade.classList.add('show');return}
-activeLesson=n;document.getElementById('directLesson').style.display='none';document.getElementById('lessonHeading').textContent=n+'. '+titles[n-1];viewer.classList.add('show');document.body.style.overflow='hidden';frame.srcdoc='<p style="font:18px system-ui;text-align:center;padding:30px">Загружаем задание…</p>';
+activeLesson=n;document.getElementById('lessonHeading').textContent=n+'. '+titles[n-1];viewer.classList.add('show');document.body.style.overflow='hidden';frame.srcdoc='<p style="font:18px system-ui;text-align:center;padding:30px">Загружаем задание…</p>';
 await ready;if(activeLesson!==n)return;
-if(lessonFiles[n]){frame.removeAttribute('srcdoc');frame.src=lessonFiles[n];document.getElementById('directLesson').href=lessonFiles[n];document.getElementById('directLesson').style.display='inline'}
-else{frame.srcdoc='<div style="font:18px system-ui;text-align:center;padding:25px"><h2>Урок '+n+'</h2><p>Адрес задания не найден. Проверьте наличие HTML-файла урока в GitHub.</p><p><a href="'+BASE+'" target="_blank">Открыть LEGO-Мастерскую ↗</a></p></div>'}
+if(lessonFiles[n]){frame.removeAttribute('srcdoc');frame.src=lessonFiles[n];}
+
+else{frame.srcdoc='<div style="font:18px system-ui;text-align:center;padding:25px"><h2>Урок '+n+'</h2><p>Не удалось найти адрес задания в списке сайта.</p><p><a href="'+BASE+'" target="_blank">Открыть LEGO-Мастерскую ↗</a></p></div>'}
 }
 document.querySelectorAll('[data-lesson]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();openLesson(Number(el.dataset.lesson))}));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(viewer.classList.contains('show'))backToMap();else{panelOpen(false);modalClose()}}});
-</script><div aria-label="Интерактивное задание" class="lesson-view" id="lessonView"><div class="lesson-top"><button id="backToMap" type="button">← На карту LEGO-страны</button><strong id="lessonHeading">Урок</strong><a id="directLesson" target="_blank" rel="noopener" style="margin-left:auto;color:white;font-size:13px;text-decoration:underline;display:none" href="#">Открыть отдельно ↗</a></div><iframe allow="fullscreen" class="lesson-frame" id="lessonFrame" title="Интерактивное задание LEGO-Мастерской"></iframe></div></body></html>
+</script></body></html>
