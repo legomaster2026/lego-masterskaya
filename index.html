@@ -1,85 +1,29 @@
-<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LEGO-Мастерская — интерактивные уроки</title><style>
-:root{font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:#193454;background:#f3f7fc}*{box-sizing:border-box}body{margin:0}header{background:linear-gradient(115deg,#15539c,#2b85bd);color:white;padding:40px 20px;text-align:center}header h1{font-size:clamp(30px,6vw,52px);margin:8px 0}header p{margin:0;color:#e6f3ff}.bricks{font-size:32px}main{max-width:1100px;margin:28px auto;padding:0 16px 45px}h2{font-size:22px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}.card{min-height:185px;border:1px solid #d9e5f2;border-radius:18px;background:white;padding:17px;display:flex;flex-direction:column;gap:8px;text-decoration:none;color:#183453;box-shadow:0 6px 20px #174b7910}.card strong{font-size:19px}.card span:not(.number){color:#526c84;font-size:14px}.card small{margin-top:auto;color:#155baa;font-weight:800}.card:hover:not(.pending){border-color:#3988d2;transform:translateY(-2px)}.number{display:grid;place-items:center;background:#e8f2ff;border-radius:12px;color:#175aab;font-weight:900;width:42px;height:42px}.pending{opacity:.58;border-style:dashed}.pending small{color:#697b8c}.notice{margin:20px 0;padding:14px 18px;border-radius:14px;background:#e7f2ff;color:#31577e}footer{text-align:center;padding:20px;color:#60768c;font-size:13px}@media(max-width:460px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.card{padding:12px;min-height:180px}.card strong{font-size:16px}}
-</style></head><body><header><div class="bricks">🟥 🟨 🟦 🟩</div><h1>LEGO-Мастерская</h1><p>Интерактивные задания по легоконструированию · 2 класс</p></header><main><h2>Выбери свой урок</h2><div class="notice" id="lesson-status">Загружаем список уроков…</div>
-<div class="grid" id="lesson-grid"></div>
-<script>
-(function () {
-  const grid = document.getElementById("lesson-grid");
-  const status = document.getElementById("lesson-status");
-  const titles = {
-    1: "Главный штаб безопасности",
-2: "Порт размеров",
-3: "Лабиринт креплений",
-4: "Дворец орнаментов",
-5: "Зеркальный лабиринт",
-6: "Карта архитектора",
-    7: "Секретный код масштаба",
-    8: "Сколько кирпичиков нужно?",
-    9: "Секрет плоской коробки",
-    10: "Машина-помощник",
-    11: "Секрет баланса",
-    12: "Зубчатый код",
-    13: "Секрет подъёма",
-    14: "Секрет прыжка",
-15: "Сила резинки",
-16: "Ловушка для ветра",
-17: "Весы справедливости",
-18: "Сейф для сокровищ",
-19: "Уютный дом",
-20: "Крыши и наклоны",
-21: "Верный друг",
-22: "Секретный объект",
-23: "LEGO-Зверюшка",
-24: "LEGO-Цветок",
-25: "Робот-Змея",
-26: "Крутящийся знак",
-27: "LEGO-Камера",
-28: "LEGO-Автомат",
-29: "Секрет мозаики",
-30: "Секрет балкона",
-31: "Фундамент и вертикальность",
-32: "Окна, двери и выносные элементы",
-33: "Крыша, финал и презентация"
-  };
-  function card(number, filename) {
-    const element = document.createElement(filename ? "a" : "div");
-    element.className = "card" + (filename ? "" : " pending");
-    if (filename) element.href = "./" + encodeURIComponent(filename);
-    const badge = document.createElement("span");
-    badge.className = "number";
-    badge.textContent = String(number).padStart(2, "0");
-    const heading = document.createElement("strong");
-    heading.textContent = "Урок " + number;
-    const description = document.createElement("span");
-    description.textContent = filename ? (titles[number] || "Интерактивные задания") : "Задание готовится";
-    const action = document.createElement("small");
-    action.textContent = filename ? "Открыть урок →" : "Скоро";
-    element.append(badge, heading, description, action);
-    return element;
-  }
-  fetch("./lessons.json", {cache: "no-store"})
-    .then(response => {
-      if (!response.ok) throw new Error("Список уроков недоступен");
-      return response.json();
-    })
-    .then(items => {
-      if (!Array.isArray(items)) throw new Error("Неверный формат списка");
-      const available = new Map();
-      for (const item of items) {
-        const first = Number(item.start ?? item["начинать"] ?? item["начало"]);
-        const last = Number(item.end ?? item["конец"] ?? first);
-        const filename = item.file ?? item["файл"];
-        if (!Number.isInteger(first) || !Number.isInteger(last) ||
-            first < 1 || last > 33 || last < first || typeof filename !== "string" ||
-            !/^[^/\\]+\.html$/i.test(filename) || filename.toLowerCase() === "index.html") continue;
-        for (let n = first; n <= last; n++) available.set(n, filename);
-      }
-      for (let n = 1; n <= 33; n++) grid.appendChild(card(n, available.get(n)));
-     status.textContent = "";
-    })
-    .catch(() => {
-      status.textContent = "Не удалось загрузить список уроков. Обновите страницу чуть позже.";
-      for (let n = 1; n <= 33; n++) grid.appendChild(card(n, null));
-    });
-})();
-</script></main><footer>LEGO-Мастерская · Учимся, играем, конструируем</footer></body></html>
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LEGO-Мастерская</title>
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <iframe
+    src="./lego-map-aligned.html"
+    title="Интерактивная карта LEGO-страны">
+  </iframe>
+</body>
+</html>
